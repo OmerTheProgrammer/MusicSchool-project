@@ -1,6 +1,6 @@
 ﻿namespace project_dani_andreev
 {
-    public class artist : 
+    public class artist : person
     {
         private int Id;
         private string artistname;
