@@ -12,9 +12,9 @@ namespace ViewModel
     {
         public ArtistList SelectAll()
         {
-            command.CommandText = $"SELECT PersonTbl.Id, PersonTbl.Pname, PersonTbl.Pcode" +
+            command.CommandText = $"SELECT PersonTbl.Id, PersonTbl.Pname, PersonTbl.Pcode " +
                   $"FROM(PersonTbl INNER JOIN" +
-                         $"ArtistTbl ON PersonTbl.Id = ArtistTbl.ID)";
+                         $" ArtistTbl ON PersonTbl.Id = ArtistTbl.ID)";
 
             ArtistList aList = new ArtistList(base.Select());
             return aList;
@@ -64,13 +64,13 @@ namespace ViewModel
         //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
         //    }
         //}
-
+       //לא רושם את הפעולה של העדכון כי אין מה לעדכן, יש רק מפתח ראשי
         //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         //{
-        //    Person c = entity as Person;
+        //    Artist c = entity as Artist;
         //    if (c != null)
         //    {
-        //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
+        //        string sqlStr = $"UPDATE ArtistTbl  SET PersonName=@cName WHERE ID=@id";
 
         //        command.CommandText = sqlStr;
         //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));

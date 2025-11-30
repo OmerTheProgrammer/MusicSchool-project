@@ -53,44 +53,55 @@ namespace ViewModel
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            chord c = entity as chord;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE ChordTbl  SET difficulty=@cName, chord=@chname WHERE ID=@id";
+
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@cName", c.Difficulty.Id));
+              
+                command.Parameters.Add(new OleDbParameter("@chName", c.Name));
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+
+            }
+
         }
+            //שלב ב
+            //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
+            //{
+            //    Person c = entity as Person;
+            //    if (c != null)
+            //    {
+            //        string sqlStr = $"DELETE FROM PersonTbl where id=@pid";
 
-        //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM PersonTbl where id=@pid";
+            //        command.CommandText = sqlStr;
+            //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            //    }
+            //}
+            //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+            //{
+            //    Person c = entity as Person;
+            //    if (c != null)
+            //    {
+            //        string sqlStr = $"Insert INTO  PersonTbl (PersonName) VALUES (@cName)";
 
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  PersonTbl (PersonName) VALUES (@cName)";
+            //        command.CommandText = sqlStr;
+            //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
+            //    }
+            //}
 
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
-        //    }
-        //}
+            //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+            //{
+            //    Person c = entity as Person;
+            //    if (c != null)
+            //    {
+            //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
 
-        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
-        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
-        //    }
-        //}
+            //        command.CommandText = sqlStr;
+            //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
+            //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
+            //    }
+            //}
+        }
     }
-}

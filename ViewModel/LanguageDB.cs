@@ -50,7 +50,15 @@ namespace ViewModel
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            language c = entity as language;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE languageTbl  SET [language]=@lan WHERE ID=@id";
+
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@lan", c.Languagename));
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+            }
         }
 
         //שלב ב
@@ -79,13 +87,13 @@ namespace ViewModel
 
         //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         //{
-        //    Person c = entity as Person;
+        //    language c = entity as language;
         //    if (c != null)
         //    {
-        //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
+        //        string sqlStr = $"UPDATE languageTbl  SET language=@lan WHERE ID=@id";
 
         //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
+        //        command.Parameters.Add(new OleDbParameter("@clan", c.Languagename));
         //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
         //    }
         //}

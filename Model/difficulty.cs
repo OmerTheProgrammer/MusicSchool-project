@@ -9,13 +9,13 @@ namespace Model
 {
     public class difficulty:BaseEntity
     {
-        private string diff;
+        private int diff;
 
 
-        public string Diff { get => diff; set => diff = value; }
+        public int Diff { get => diff; set => diff = value; }
         public override string ToString()
         {
-            return Diff;
+            return Diff+"";
         }
     }
 }

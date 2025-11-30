@@ -28,7 +28,7 @@ namespace ViewModel
         protected override BaseEntity CreateModel(BaseEntity entity)
         {
             difficulty a = entity as difficulty;
-            a.Diff = reader["diff"].ToString();
+            a.Diff = int.Parse(reader["diff"].ToString());
 
 
             base.CreateModel(entity);
@@ -60,7 +60,15 @@ namespace ViewModel
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            difficulty c = entity as difficulty;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE DifficultyTbl  SET diff=@diff WHERE ID=@id";
+
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@diff", c.Diff));
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+            }
         }
 
         //שלב ב
@@ -89,13 +97,13 @@ namespace ViewModel
 
         //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         //{
-        //    Person c = entity as Person;
+        //    difficulty c = entity as difficulty;
         //    if (c != null)
         //    {
-        //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
+        //        string sqlStr = $"UPDATE DifficultyTbl  SET diff=@diff WHERE ID=@id";
 
         //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
+        //        command.Parameters.Add(new OleDbParameter("@diff", c.Diff));
         //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
         //    }
         //}

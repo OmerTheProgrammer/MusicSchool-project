@@ -53,7 +53,15 @@ namespace ViewModel
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            genre c = entity as genre;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE genreTbl  SET genre=@gName WHERE ID=@id";
+
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@gName", c.Genrename));
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+            }
         }
 
         //שלב ב
