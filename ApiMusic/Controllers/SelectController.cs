@@ -82,6 +82,15 @@ namespace ApiSelect.Controllers
             SongList songs = db.SelectAll();
             return songs;
         }
+        [HttpGet("{id}")]
+        [ActionName("PersonPictureSelector64Byte")]
+        public string GetAPersonPictureById64Byte(int id)
+        {
+            SongDB db = new SongDB();
+            string str = db.SelectSongPicBySongId(id);
+
+            return str;
+        }
 
         #endregion
 

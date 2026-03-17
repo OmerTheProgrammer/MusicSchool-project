@@ -28,10 +28,23 @@ namespace ViewModel
             a.Difficultyid = DifficultyDB.SelectById(int.Parse(reader["difficultyid"].ToString()));
             a.Languageid = LanguageDB.SelectById(int.Parse(reader["languageid"].ToString()));
 
+            string imagePath = Path() + "\\pictures\\" + reader["songPath"].ToString();
+            string base64String = ImageToBase64Converter.ImageToBase64(imagePath);
+            a.SongPic = base64String;
+
 
             base.CreateModel(entity);
             return a;
         }
+        public string SelectSongPicBySongId(int id)
+        {
+            SongList sList = SelectAll();
+            song song = sList.Find(x => x.Id == id);
+
+            string pic = song.SongPic;
+            return pic;
+        }
+
         public override BaseEntity NewEntity()
         {
             return new song();

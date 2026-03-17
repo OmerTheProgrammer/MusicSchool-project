@@ -9,9 +9,9 @@ namespace Model
     public class person:BaseEntity
     {
         private string name;
-        private int code;
+        private string code;
 
         public string Name { get => name; set => name = value; }
-        public int Code { get => code; set => code = value; }
+        public string Code { get => code; set => code = value; }
     }
 }

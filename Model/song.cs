@@ -13,11 +13,13 @@ namespace Model
         private genre gaenreid;
         private difficulty difficultyid;
         private language languageid;
+        private string songPic;
 
         public string Name { get => name; set => name = value; }
         public Artist Artistid { get => artistid; set => artistid = value; }
         public genre Gaenreid { get => gaenreid; set => gaenreid = value; }
         public difficulty Difficultyid { get => difficultyid; set => difficultyid = value; }
         public language Languageid { get => languageid; set => languageid = value; }
+        public string SongPic { get => songPic; set => songPic = value; }
     }
 }

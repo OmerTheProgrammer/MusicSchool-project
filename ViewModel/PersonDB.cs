@@ -20,7 +20,7 @@ namespace ViewModel
         {
             person p = entity as person;
             p.Name = reader["Pname"].ToString();
-            p.Code = int.Parse(reader["Pcode"].ToString());
+            p.Code = (reader["Pcode"].ToString());
             //p.LivingCity = CityDB.SelectById((int)reader["cityCode"]);
             base.CreateModel(entity);
             return p;

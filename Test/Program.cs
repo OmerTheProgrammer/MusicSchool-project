@@ -173,7 +173,7 @@ namespace Test
 
 
             // Artist
-            Artist a = new Artist() { Name= "kanye west", Code=1334,  };
+            Artist a = new Artist() { Name= "kanye west", Code="1334",  };
             ArtistDB artistDB = new ArtistDB();
             artistDB.Insert(a);
             int xx2 = artistDB.SaveChanges();
@@ -229,7 +229,7 @@ namespace Test
             xx7 = lyricsDB.SaveChanges();
 
             // Person
-            person p = new person() { Code=32, Name="noam" };
+            person p = new person() { Code="32", Name="noam" };
             PersonDB personDB = new PersonDB();
             personDB.Insert(p);
             int xx8 = personDB.SaveChanges();
