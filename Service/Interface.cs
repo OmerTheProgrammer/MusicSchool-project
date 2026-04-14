@@ -60,7 +60,7 @@ namespace Service
         public Task<int> DeleteASong(song song);
         public interface IApiService
         {
-            public Task<string> SelectSongPicBySongId(int songId);  
+            public Task<string> SelectSongPicBySongId(int songId);
 
         }
     }
