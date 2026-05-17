@@ -16,6 +16,14 @@ namespace ViewModel
             command.CommandText = $"SELECT * FROM ChordTbl";
             ChordList aList = new ChordList(base.Select());
             return aList;
+        }  
+        public string SelectChordPicByChordId(int id)
+        {
+            ChordList cList = SelectAll();
+            chord chord = cList.Find(x => x.Id == id);
+
+            string pic = chord.Chordpic;
+            return pic;
         }
         protected override BaseEntity CreateModel(BaseEntity entity)
         {
@@ -23,6 +31,10 @@ namespace ViewModel
             a.Name = reader["chord"].ToString();
             a.Difficulty =DifficultyDB.SelectById( int.Parse (reader["difficulty"].ToString())  );
 
+            string imagePath = "\\Users\\User\\source\\repos\\MusicSchool project\\ViewModel\\pictures\\" + reader["chordPath"].ToString();
+            a.Chordpath = imagePath;
+            string base64String = ImageToBase64Converter.ImageToBase64(imagePath);
+            a.Chordpic = base64String;
 
             base.CreateModel(entity);
             return a;
@@ -41,6 +53,8 @@ namespace ViewModel
             return g;
         }
 
+  
+
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
             chord x = entity as chord;
@@ -58,14 +72,19 @@ namespace ViewModel
             chord p = entity as chord;
             if (p != null)
             {
-                string sqlStr = $"Insert INTO ChordTbl (Id,chord,difficulty) " +
-                                "VALUES (@id,@chord,@diff)";
+                string sqlStr = $"Insert INTO ChordTbl (Id,chord,difficulty,chordpic,chordPath) " +
+                                "VALUES (@id,@chord,@diffficulty,@chp,@cpa)";
 
                 command.CommandText = sqlStr;
 
                 command.Parameters.Add(new OleDbParameter("@id", p.Id));
                 command.Parameters.Add(new OleDbParameter("@chord", p.Name));
                 command.Parameters.Add(new OleDbParameter("@difficulty", p.Difficulty.Id));
+                command.Parameters.Add(new OleDbParameter("@chp", p.Chordpic));
+                command.Parameters.Add(new OleDbParameter("@cpa", p.Chordpath));
+
+
+
 
 
             }
@@ -76,13 +95,16 @@ namespace ViewModel
             chord c = entity as chord;
             if (c != null)
             {
-                string sqlStr = $"UPDATE ChordTbl  SET difficulty=@cName, chord=@chname WHERE ID=@id";
+                string sqlStr = $"UPDATE ChordTbl  SET difficulty=@cName, chord=@chname,chordpic=@chp, chordPath=@cpa WHERE ID=@id";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@cName", c.Difficulty.Id));
-              
                 command.Parameters.Add(new OleDbParameter("@chName", c.Name));
                 command.Parameters.Add(new OleDbParameter("@id", c.Id));
+                command.Parameters.Add(new OleDbParameter("@chp", c.Chordpic));
+                command.Parameters.Add(new OleDbParameter("@cpa", c.Chordpath));
+
+
 
             }
 

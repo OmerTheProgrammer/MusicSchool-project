@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Service
@@ -68,7 +69,27 @@ namespace Service
             return (await client.DeleteAsync(uri + $"/api/Select/DeleteChord/?id={id}")).IsSuccessStatusCode ? 1 : 0;
         }
 
+        public async Task<string> GetApersonPicByte64(int id)
+        {
+            HttpClient client = new HttpClient();
 
+            string st = null;
+            string URI = $"http://localhost:5166/api/Select/PersonPictureSelector64Byte/" + id;
+            HttpResponseMessage response = await client.GetAsync(URI);
+            Interface apiResponse = null;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                json = '"' + json + '"';
+                try
+                {
+                    st = JsonSerializer.Deserialize<string>(json);
+                }
+                catch (Exception e) { }
+                // Deserialize the JSON response using System.Text.Json
+            }
+            return st;
+        }
         #endregion
 
 
@@ -232,6 +253,28 @@ namespace Service
             int id = s.Id;
             return (await client.DeleteAsync(uri + $"/api/Select/DeleteSong?id={id}" )).IsSuccessStatusCode ? 1 : 0;
             
+        }
+
+        public async Task<string> GetAPersonPicByte64(int id)
+        {
+            HttpClient client = new HttpClient();
+
+            string st = null;
+            string URI = $"http://localhost:5166/api/Select/PersonPictureSelector64Byte/" + id;
+            HttpResponseMessage response = await client.GetAsync(URI);
+            Interface apiResponse = null;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                json = '"' + json + '"';
+                try
+                {
+                    st = JsonSerializer.Deserialize<string>(json);
+                }
+                catch (Exception e) { }
+                // Deserialize the JSON response using System.Text.Json
+            }
+            return st;
         }
 
 

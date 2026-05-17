@@ -14,6 +14,7 @@ namespace Model
         private difficulty difficultyid;
         private language languageid;
         private string songPic;
+        private string songpath;
 
         public string Name { get => name; set => name = value; }
         public Artist Artistid { get => artistid; set => artistid = value; }
@@ -21,5 +22,6 @@ namespace Model
         public difficulty Difficultyid { get => difficultyid; set => difficultyid = value; }
         public language Languageid { get => languageid; set => languageid = value; }
         public string SongPic { get => songPic; set => songPic = value; }
+        public string Songpath { get => songpath; set => songpath = value; }
     }
 }

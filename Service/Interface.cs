@@ -60,8 +60,9 @@ namespace Service
         public Task<int> DeleteASong(song song);
         public interface IApiService
         {
-            public Task<string> SelectSongPicBySongId(int songId);
-
+            public Task<string> GetAPersonPicByte64(int id);
+            public Task<SongList> SelectAllSongs();
+            public int InsertAsong(song song);
         }
     }
 }

@@ -5,9 +5,8 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
 using static ViewModel.BaseDB;
+using System.IO;
 
 namespace ViewModel
 {
@@ -28,7 +27,8 @@ namespace ViewModel
             a.Difficultyid = DifficultyDB.SelectById(int.Parse(reader["difficultyid"].ToString()));
             a.Languageid = LanguageDB.SelectById(int.Parse(reader["languageid"].ToString()));
 
-            string imagePath = Path() + "\\pictures\\" + reader["songPath"].ToString();
+            string imagePath = "\\Users\\User\\source\\repos\\MusicSchool project\\ViewModel\\pictures\\" + reader["songPath"].ToString();
+            a.Songpath = imagePath;
             string base64String = ImageToBase64Converter.ImageToBase64(imagePath);
             a.SongPic = base64String;
 
@@ -77,8 +77,8 @@ namespace ViewModel
             song p = entity as song;
             if (p != null)
             {
-                string sqlStr = $"Insert INTO  SongTbl (id,songname,artistid,ganreid,difficultyid,languageid) " +
-                                "VALUES (@id,@sname,@aid,@gid,@did,@lid)";
+                string sqlStr = $"Insert INTO  SongTbl (id,songname,artistid,ganreid,difficultyid,languageid,songPic,songPath) " +
+                                "VALUES (@id,@sname,@aid,@gid,@did,@lid,@sp,@spa)";
 
                 command.CommandText = sqlStr;
 
@@ -88,6 +88,10 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@gid", p.Gaenreid.Id));
                 command.Parameters.Add(new OleDbParameter("@did", p.Difficultyid.Id));
                 command.Parameters.Add(new OleDbParameter("@lid", p.Languageid.Id));
+                command.Parameters.Add(new OleDbParameter("@sp", p.SongPic));
+                command.Parameters.Add(new OleDbParameter("@spa", p.Songpath));
+
+
             }
         }
 
@@ -96,7 +100,7 @@ namespace ViewModel
             song c = entity as song;
             if (c != null)
             {
-                string sqlStr = $"UPDATE  SongTbl  SET songname=@sName,artistid=@aid,ganreid=@gid,difficultyid=@did,languageid=@lid WHERE ID=@id";
+                string sqlStr = $"UPDATE  SongTbl  SET songname=@sName,artistid=@aid,ganreid=@gid,difficultyid=@did,languageid=@lid songPic=@sp,songPath=@spa WHERE ID=@id";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@sName", c.Name));
@@ -105,6 +109,10 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@did", c.Difficultyid.Id));
                 command.Parameters.Add(new OleDbParameter("@lid", c.Languageid.Id));
                 command.Parameters.Add(new OleDbParameter("@id", c.Id));
+                command.Parameters.Add(new OleDbParameter("@sp", c.SongPic));
+                command.Parameters.Add(new OleDbParameter("@spa", c.Songpath));
+
+
             }
 
         }
