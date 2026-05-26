@@ -12,7 +12,15 @@ namespace ApiSelect.Controllers
     {
         #region select
         [HttpGet]
-        [ActionName("ArtistSelector")]
+        [ActionName("AdminSelector")]
+        public AdminList SelectAllAdmins()
+        {
+            AdminDB db = new AdminDB();
+            AdminList artists = db.SelectAll();
+            return artists;
+        }
+
+        [HttpGet]
         public ArtistList SelectAllArtists()
         {
             ArtistDB db = new ArtistDB();
@@ -97,6 +105,15 @@ namespace ApiSelect.Controllers
         #region insert
 
         [HttpPost]
+        public int InsertAAdmin(Admin a)
+        {
+            AdminDB db = new AdminDB();
+            db.Insert(a);
+            int x = db.SaveChanges();
+            return x;
+        }
+
+        [HttpPost]
         public int InsertAArtist(Artist a)
         {
             ArtistDB db = new ArtistDB();
@@ -171,6 +188,15 @@ namespace ApiSelect.Controllers
         #endregion
 
         #region update
+
+        [HttpPut]
+        public int UpdateAAdmin([FromBody] Admin a)
+        {
+            AdminDB db = new AdminDB();
+            db.Update(a);
+            int x = db.SaveChanges();
+            return x;
+        }
 
         [HttpPut]
         public int UpdateAArtist([FromBody] Artist a)
@@ -248,6 +274,16 @@ namespace ApiSelect.Controllers
         #endregion
 
         #region delete
+
+        [HttpDelete]
+        public int DeleteAdmin(int id)
+        {
+            AdminDB db = new AdminDB();
+            Admin a = AdminDB.SelectById(id);
+            db.Delete(a);
+            int x = db.SaveChanges();
+            return x;
+        }
 
         [HttpDelete]
         public int DeleteArtist(int id)

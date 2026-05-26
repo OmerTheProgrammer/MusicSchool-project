@@ -11,6 +11,13 @@ namespace Service
 {
     public interface Interface
     {
+
+        // --- Admin ---
+        public Task<AdminList> SelectAllAdmins();
+        public Task<int> InsertAAdmin(Admin admin);
+        public Task<int> UpdateAAdmin(Admin admin);
+        public Task<int> DeleteAAdmin(Admin admin);
+
         // --- Artist ---
         public Task<ArtistList> SelectAllArtists();
         public Task<int> InsertAArtist(Artist artist);

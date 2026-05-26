@@ -20,6 +20,29 @@ namespace Service
             uri = "http://localhost:5008"; 
             client = new HttpClient();
         }
+        #region admin
+        public async Task<AdminList> SelectAllAdmins()
+        {
+            return await client.GetFromJsonAsync<AdminList>(uri + "/api/Select/AdminSelector");
+        }
+
+        public async Task<int> InsertAAdmin(Admin a)
+        {
+            return (await client.PostAsJsonAsync(uri + "/api/Select/InsertAAdmin", a)).IsSuccessStatusCode ? 1 : 0;
+        }
+
+        public async Task<int> UpdateAAdmin(Admin a)
+        {
+            return (await client.PutAsJsonAsync(uri + "/api/Select/UpdateAAdmin", a)).IsSuccessStatusCode ? 1 : 0;
+        }
+
+        public async Task<int> DeleteAAdmin(Admin a)
+        {
+            int id = a.Id;
+            return (await client.DeleteAsync(uri + $"/api/Select/DeleteAdmin?id={id}")).IsSuccessStatusCode ? 1 : 0;
+        }
+
+        #endregion
 
         #region artist
         public async Task<ArtistList> SelectAllArtists()
